@@ -1,4 +1,5 @@
 const express = require("express");
+const PORT = process.env.PORT || 3001;
 const app = express();
 const { animals } = require("./data/animals");
 
@@ -16,11 +17,13 @@ function filterByQuery(query, animalsArray) {
       personalityTraitsArray = query.personalityTraits;
     }
     //Loop through each trait in new array
-    personalityTraitsArray.forEach(trait => {
-        //checks the trait against each animal in filteredResults
-        //Each trait being targeted by the query will change the filteredResults array
-        //to contain entries that only have teh specified trait
-        filteredResults = filteredResults.filter(animal => animal.personalityTraits.indexOf(trait) !== -1);
+    personalityTraitsArray.forEach((trait) => {
+      //checks the trait against each animal in filteredResults
+      //Each trait being targeted by the query will change the filteredResults array
+      //to contain entries that only have teh specified trait
+      filteredResults = filteredResults.filter(
+        (animal) => animal.personalityTraits.indexOf(trait) !== -1
+      );
     });
   }
 
@@ -53,6 +56,6 @@ app.get("/api/animals", (req, res) => {
   res.json(results);
 });
 
-app.listen(3001, () => {
-  console.log("API server now on port 3001!");
+app.listen(PORT, () => {
+  console.log(`API Server no on ${PORT}`);
 });
